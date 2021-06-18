@@ -45,4 +45,24 @@ app.post('/api/name', (req, res) => {
   res.status(200).send(`${firstName}, I believe in you!`)
 })
 
+// End of day Review
+
+let items = ['hello', 'sunshine']
+
+app.get('/api/items', (req, res) => {
+  res.status(200).send(items)
+})
+
+app.post('/api/items', (req, res) => {
+  const { newItem } = req.body
+  items.push(newItem)
+  res.sendStatus(200)
+})
+
+app.delete('/api/items/:indexPos', (req, res) => {
+  const { indexPos } = req.params
+  const removedItem = items.splice(+indexPos, 1)
+  res.status(200).send(removedItem)
+})
+
 app.listen(4000, () => console.log("Server running on 4000"));

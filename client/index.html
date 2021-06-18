@@ -18,6 +18,13 @@
   <h2 id="message"></h2>
   <button id="submit">Submit</button>
   </div>
+  <div>
+    <h3>End of day review</h3>
+    <button id="getItems">Get items</button>
+    <input type="text" placeholder="item name" id="itemInput">
+    <button id="addItem">Add item</button>
+    <button id="deleteItem">Delete item</button>
+  </div>
 
   <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
   <script>
@@ -74,6 +81,41 @@
           input.append(response.data)
           // console.log(response.data)
         })
+    })
+
+    document.querySelector('#getItems').addEventListener('click', () => {
+      axios
+        .get('http://localhost:4000/api/items')
+        .then(function (res) {
+          alert(res.data)
+        })
+    })
+
+    document.getElementById('addItem').addEventListener('click', () => {
+      const itemValue = document.querySelector('#itemInput').value
+
+      if (!itemValue) {
+        alert('cannot add empty item!')
+        return
+      }
+
+      axios
+        .post('http://localhost:4000/api/items', { newItem: itemValue })
+        .then(function () {
+          alert('Item added!')
+        })
+        .catch(function (err) { console.log(err) })
+    })
+
+    document.querySelector('#deleteItem').addEventListener('click', function () {
+      const tgtIndex = prompt('Give the index position for what to delete')
+
+      axios
+        .delete(`http://localhost:4000/api/items/${tgtIndex}`)
+        .then(function (res) {
+          alert(`you have deleted ${res.data}`)
+        })
+        .catch(function (err) { console.log(err) })
     })
 
 
