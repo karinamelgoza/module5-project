@@ -39,7 +39,9 @@ app.get('/api/quote', (req, res) => {
 })
 
 app.post('/api/name', (req, res) => {
-  let firstName = req.body
+  // console.log(req.body.firstName)
+
+  let firstName = req.body.firstName
   res.status(200).send(`${firstName}, I believe in you!`)
 })
 

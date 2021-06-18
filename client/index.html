@@ -14,19 +14,14 @@
     <button id="getPokemon">Get Pokemon</button>
     <h2 id="encourage"></h2>
   </div>
-  <form>
-    First Name: <input type="text" id="userName">
-    <h2 id="message"></h2>
-    <button id="submit">Submit
-    </button>
-  </form>
+  First Name: <input type="text" id="userName">
+  <h2 id="message"></h2>
+  <button id="submit">Submit</button>
   </div>
 
   <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
   <script>
 
-    let inputName = document.querySelector('#userName')
-    let submitBtn = document.querySelector('submit')
     document.getElementById("complimentButton").onclick = function () {
       axios.get("http://localhost:4000/api/compliment/")
         .then(function (response) {
@@ -51,7 +46,7 @@
           const pokeName = res.data.results[0].name
           let statement = document.getElementById('encourage')
           statement.append(`${pokeName} believes in you!`)
-          console.log(pokeName)
+          // console.log(pokeName)
         })
     }
 
@@ -63,14 +58,21 @@
           alert(data)
         })
     }
+
+    let inputName = document.querySelector('#userName')
+    let submitBtn = document.querySelector('#submit')
+
     submitBtn.addEventListener('click', function () {
-      let fristName = inputName.value
-      let body = { firstName }
+      let firstName = inputName.value
+      let body = {
+        firstName
+      }
       axios
-        .get('http://localhost:4000/api/name', body)
-        .then(response => {
+        .post('http://localhost:4000/api/name', body)
+        .then(function (response) {
           let input = document.getElementById('message')
           input.append(response.data)
+          // console.log(response.data)
         })
     })
 
