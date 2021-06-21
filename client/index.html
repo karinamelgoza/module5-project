@@ -50,9 +50,26 @@
       axios
         .get('https://pokeapi.co/api/v2/pokemon')
         .then(function (res) {
-          const pokeName = res.data.results[0].name
+
+          const pokemon = res.data.results
+          let randomIndex = Math.floor(Math.random() * pokemon.length)
+          let randomPokemon = pokemon[randomIndex]
+
+          // for (let i = 0; i < pokemon.length; i++) {
+          //   const pokeName = pokemon[i].name
+          //   let statement = document.getElementById('encourage')
+          //   statement.append(`${pokeName} believes in you!`)
+
+          // }
+
+          const pokeName = randomPokemon.name
           let statement = document.getElementById('encourage')
           statement.append(`${pokeName} believes in you!`)
+
+
+          // const pokeName = res.data.results[0].name
+          // let statement = document.getElementById('encourage')
+          // statement.append(`${pokeName} believes in you!`)
           // console.log(pokeName)
         })
     }
